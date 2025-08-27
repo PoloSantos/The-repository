@@ -2,7 +2,7 @@
 
 This assignment will develop your proficiency with Python's control flows.
 '''
-def shift_letter():
+def shift_letter(letter,shift):
     '''letter, shift
     Shift Letter.
 
@@ -35,22 +35,26 @@ def shift_letter():
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     alphabet = ["A","B","C","D","E","F",'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-    letter = str(input("What letter will you shift? "))
-    
+    i = 0
     if letter == " ":
-        print(" ")
+        letter = " "
+        return letter
+    
     else:
-        shift = int(input("By how many positions will you shift it by? "))
         position = alphabet.index(letter)
         position2 = position+shift
-        if position2 > 26:
-            position2 = position2 - 26
-        print(alphabet[position2])
+        while i == 0:
+            if position2 >= 26:
+                position2 = position2 - 26
+            else:
+                finalalph = alphabet[position2]
+                i = 1
+                return finalalph
 
-shift_letter()
+shift_letter("Z",100)
 
 
-def caesar_cipher():
+def caesar_cipher(message,shift):
     '''message, shift
     Caesar Cipher.
 
@@ -70,27 +74,41 @@ def caesar_cipher():
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    alphabet = ["A","B","C","D","E","F",'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-    message = str(input("What is the message? "))
+    alphabet = ["A","B","C","D","E","F","G","H",'I',"J",'K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     
     if message == " ":
-        print(" ")
+        message = " "
+        return message
+
     else:
-        shift = int(input("By how many positions will you shift it by? "))
         messagelist = list(message)
+        j = 0
+
         for letter in messagelist:
-            position = alphabet.index(letter)
-            position2 = position+shift
-            if position2 > 26:
-                position2 = position2 - 26
-            messagelist[messagelist.index(letter)] = alphabet[position2]
+            
+            if letter != " ":
+                i = 0
 
-        print("".join(messagelist))
+                pos = alphabet.index(letter) + shift
+                
+                while i == 0:
+                    if pos >= 26:
+                        pos = pos - 26
+                    else:
+                        messagelist[j] = alphabet[pos]
+                        i = 1
+                        j += 1
+            else:
+                j += 1
+                
 
-caesar_cipher()
+        finalemsg = "".join(messagelist)
+        return finalemsg
+
+caesar_cipher("AAAAA BBB CCC DDD",1)
 
 
-def shift_by_letter():
+def shift_by_letter(letter, letter_shift):
     '''letter, letter_shift
     Shift By Letter.
 
@@ -119,23 +137,22 @@ def shift_by_letter():
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     alphabet = ["A","B","C","D","E","F",'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-    letter = str(input("What letter will you shift? "))
-    
     if letter == " ":
-        print(" ")
+        letter = " "
+        return letter
+    
     else:
-        lettershift = str(input("By how many positions will you shift it by(letter input)? "))
-        numshift = alphabet.index(lettershift)
-        position = alphabet.index(letter)
-        position2 = position+numshift
-        if position2 > 26:
-            position2 = position2 - 26
-        print(alphabet[position2])
+        numshift = alphabet.index(letter_shift)
+        pos = alphabet.index(letter) + numshift
+        if pos >= 26:
+            pos = pos - 26
+        output = alphabet[pos]
+        return output
 
-shift_by_letter()
+shift_by_letter("Z", "B")
 
 
-def vigenere_cipher():
+def vigenere_cipher(message, key):
     '''message, key
     Vigenere Cipher.
 
@@ -167,41 +184,43 @@ def vigenere_cipher():
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     alphabet = ["A","B","C","D","E","F",'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-    message = str(input("What is the message? "))
     
 
     if message == " ":
-        print(" ")
+        message = " "
+        return message
 
     else:
-        key = input("input your key: ")
         keylist = list(key)
-        messagelist = list(message)
-        i = 0
         j = 0
-        listamt = len(keylist)
-        for var in keylist:
-            john = alphabet.index(var)
-            keylist[j] = john
-            j += 1
+        kayz = len(keylist) 
+        output = ""
 
-        for letter in messagelist:
-            position = alphabet.index(letter)
+        for kar in keylist:
+            if kar != " ":
+                getnum = alphabet.index(kar)
+                currentind = keylist.index(kar)
+                keylist[j] = getnum
+                j += 1
+            else: 
+                keylist.remove[j]
+                
+        j = 0
+        for letter in message:
+            if letter == " ": 
+                output += " "
+                j += 1
+            else:
+                pos = alphabet.index(letter) + keylist[j%kayz]
+                finalletter = alphabet[pos%26]
 
-            if listamt <= i:
-                i = 0
-            ke = keylist[i]
-            
-            positionfinale = position+ke
-            if positionfinale > 26:
-                positionfinale = positionfinale - 26
+                output += (finalletter)
+                j += 1
 
-            messagelist[messagelist.index(letter)] = alphabet[positionfinale]
-            i += 1
 
-    print("".join(messagelist))
+    return output
     
-vigenere_cipher()
+vigenere_cipher("JOHNSKIB","AABAAC")
 
 
 def scytale_cipher(message, shift):
@@ -257,26 +276,27 @@ def scytale_cipher(message, shift):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     messagelist = list(message)
-    masglste = list(message)
+    finalmsg = ""
     i = 0
-    j = 1
+    j = 0
     while i == 0:
         if (len(messagelist)%shift) == 0:
-            for letter in messagelist:
-                numlet = messagelist.index(letter)
-                masglste[numlet] = messagelist[(numlet//shift)+(len(message)//shift)*(numlet%shift)]
-            i = 1
-
+              i = 1
         else:
             messagelist.append("_")
-            masglste.append("_")
 
-    finalmsg = "".join(masglste)
-    print(finalmsg)
+    columnamt = len(messagelist)//shift
+
+    for letter in messagelist:
+                space = messagelist[(j//shift)+(columnamt)*(j%shift)]
+                finalmsg += space
+                j += 1
+    
+
+    #finalmsg = "".join(messagelist)
     return finalmsg
 
-scytale_cipher("QWERTYUIOPAS", 3)
-
+scytale_cipher("JOHNROBLAX", 6)
 
 def scytale_decipher(message, shift):
     '''Scytale De-cipher.
@@ -305,22 +325,23 @@ def scytale_decipher(message, shift):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     messagelist = list(message)
-    masglste = list(message)
+    msglst = list(message)
+    finalmsg = ""
     i = 0
-    j = 1
+    j = 0
     while i == 0:
         if (len(messagelist)%shift) == 0:
-            for letter in messagelist:
-                numlet = messagelist.index(letter)
-                messagelist[(numlet//shift)+(len(message)//shift)*(numlet%shift)] = masglste[numlet]
-            i = 1
-
+              i = 1
         else:
             messagelist.append("_")
-            masglste.append("_")
+            msglst.append("_")
 
+    columnamt = len(messagelist)//shift
+
+    for letter in messagelist:
+                messagelist[(j//shift)+(columnamt)*(j%shift)] = msglst[j] 
+                j += 1
     finalmsg = "".join(messagelist)
-    print(finalmsg)
     return finalmsg
 
-scytale_decipher("QTOWYPEUARIS",3)
+scytale_decipher("JHRBA_ONOLX_",6)

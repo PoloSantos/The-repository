@@ -31,8 +31,8 @@ def savings(gross_pay,tax_rate,expenses):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     import math
-    tax = gross_pay*tax_rate
-    take_home = gross_pay - math.floor(tax) - expenses
+    tax = gross_pay - gross_pay*tax_rate
+    take_home = math.floor(tax - expenses)
     return take_home
 
 savings(50000,0.14,7000)
